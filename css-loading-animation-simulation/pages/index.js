@@ -1,6 +1,11 @@
 import Head from 'next/head'
 
+import { useState, useEffect } from 'react';
+
 export default function Home() {
+	
+	const [loadingState, updateLoadingState] = useState(true);
+	const [contentState, updateContentState] = useState({});
 	
 	const content = {
 		header: "Can we have Bender Burgers again?",
@@ -11,6 +16,13 @@ export default function Home() {
 			,"Well I'da done better, but it's plum hard pleading a case while awaiting trial for that there incompetence."
 		]
 	}
+
+	useEffect(() => {
+		setTimeout(() => {
+			updateContentState(content);
+			updateLoadingState(false);
+		}, 2000)
+	}, []);
 	
 	return (
 		<div className="container">
@@ -20,10 +32,10 @@ export default function Home() {
 			</Head>
 
 			<main>
-				<h1>{ content.header }</h1>
-				<p>{ content.intro }</p>
+				<h1>{ contentState.header }</h1>
+				<p>{ contentState.intro }</p>
 				<ul>
-					{ content.list.map((item, i) => {
+					{ Array.isArray(contentState.list) && contentState.list.map((item, i) => {
 					  return (
 						<li key={i}>{ item }</li>
 					  )
