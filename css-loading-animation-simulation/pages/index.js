@@ -5,7 +5,15 @@ import { useState, useEffect } from 'react';
 export default function Home() {
 	
 	const [loadingState, updateLoadingState] = useState(true);
-	const [contentState, updateContentState] = useState({});
+	const [contentState, updateContentState] = useState({
+		header: 'Loading',
+		intro: 'Loading',
+		list: [
+			'Loading',
+			'Loading',
+			'Loading'
+		]
+	});
 	
 	const content = {
 		header: "Can we have Bender Burgers again?",
@@ -27,11 +35,11 @@ export default function Home() {
 	return (
 		<div className="container">
 			<Head>
-				<title>Create Next App</title>
+				<title>Loading Animation Simulation</title>
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<main>
+			<main className={loadingState ? 'loading' : ''}>
 				<h1>{ contentState.header }</h1>
 				<p>{ contentState.intro }</p>
 				<ul>
@@ -44,7 +52,9 @@ export default function Home() {
 			</main>
 			
 			<style jsx>{`
-				.loading{
+				.loading h1,
+				.loading p,
+				.loading li{
 					color: transparent;
 					background: linear-gradient(100deg, #eceff1 30%, #f6f7f8 50%, #eceff1 70%);
 					background-size: 400%;
